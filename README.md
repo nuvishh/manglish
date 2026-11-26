@@ -55,7 +55,7 @@ The transliterator follows a Mozhi-style scheme — the spelling most Malayalis 
 
 | Manglish | Malayalam | Notes |
 | --- | --- | --- |
-| `aa`, `ii`, `uu`, `ee`, `oo` | ആ, ഈ, ഊ, ഏ, ഓ | doubled vowels are one long vowel |
+| `aa`, `ii`, `uu`, `ee`, `oo` | ആ, ഈ, ഊ, ഈ, ഓ | doubled vowels are one long vowel (`ee` is ഈ; use capital `E` inside a word for ഏ) |
 | `kh`, `gh`, `ch`, `jh`, `th`, `dh`, `ph`, `bh`, `sh`, `zh` | ഖ, ഘ, ച, ഝ, ത, ധ, ഫ, ഭ, ശ, ഴ | aspirated consonants |
 | `chh`, `ksh`, `tth`, `ddh` | ഛ, ക്ഷ, ത്ത, ദ്ധ | three-letter sequences |
 | `ng` | ങ്ങ് / ം | `n` + `g` assimilate; see below |

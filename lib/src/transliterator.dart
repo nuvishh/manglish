@@ -117,7 +117,9 @@ List<_Unit> _tokenize(String word) {
     // Three-letter sequences.
     if (i + 3 <= word.length) {
       final lower3 = word.substring(i, i + 3).toLowerCase();
-      if (lower3 == 'chh' || lower3 == 'ksh' || lower3 == 'tth' ||
+      if (lower3 == 'chh' ||
+          lower3 == 'ksh' ||
+          lower3 == 'tth' ||
           lower3 == 'ddh') {
         units.add(_ConsonantUnit(lower3));
         i += 3;
@@ -182,8 +184,7 @@ List<_Unit> _tokenize(String word) {
     }
     if (lower == 'c') {
       // `c` before e/i/y sounds like സ (`cinema`), otherwise ക (`calicut`).
-      final next =
-          i + 1 < word.length ? word[i + 1].toLowerCase() : '';
+      final next = i + 1 < word.length ? word[i + 1].toLowerCase() : '';
       units.add(
         _ConsonantUnit(
           next == 'e' || next == 'i' || next == 'y' ? 's' : 'k',
@@ -324,8 +325,7 @@ String _buildWord(List<_Unit> units) {
         emitSyllable(pending, unit.id, pendingGeminate);
         pending = null;
         pendingGeminate = false;
-      } else if (prevWasVowel &&
-          (unit.id == 'i' || unit.id == 'ii')) {
+      } else if (prevWasVowel && (unit.id == 'i' || unit.id == 'ii')) {
         // `i` after a vowel glides to യ് + vowel (`saai` → സായി);
         // write it as തായ് with an explicit `y` (`taay` → തായ്).
         lastStart = out.length;
@@ -335,8 +335,7 @@ String _buildWord(List<_Unit> units) {
         lastWasSyllable = true;
         out.write('യ');
         out.write(v.sign);
-      } else if (prevWasVowel &&
-          (unit.id == 'u' || unit.id == 'uu')) {
+      } else if (prevWasVowel && (unit.id == 'u' || unit.id == 'uu')) {
         // `u` after a vowel glides to വ് + vowel.
         lastStart = out.length;
         lastConsonant = consonants['v'];
@@ -366,13 +365,15 @@ String _buildWord(List<_Unit> units) {
   }
 
   if (pending != null) {
-    // A word-final `h` after short `a` is the visarga (`ah` → അഃ).
-    if (identical(pending, consonants['h']) && lastVowelId == 'a') {
+    // A word-final `h` immediately after short `a` is the visarga (`ah` → അഃ).
+    if (identical(pending, consonants['h']) &&
+        lastWasSyllable &&
+        lastVowelId == 'a') {
       out.write('ഃ');
     } else if (pendingGeminate) {
       // A doubled consonant at the end of a word keeps its geminate
-      // form (`kott` → കൊട്ട്, not കൊട്ത്).
-      out.write(pending.geminatePure ?? _wordFinal(pending));
+      // form (`kott` → കൊട്ട്, `kall` → കല്ല്).
+      out.write(pending.geminatePure ?? pending.pure);
     } else {
       out.write(_wordFinal(pending));
     }
@@ -383,9 +384,7 @@ String _buildWord(List<_Unit> units) {
   // (സംവൃതോകാരം): `enikku` → എനിക്ക്, `enthu` → എന്ത്, `naalu` → നാല്.
   // It is kept after most other consonants: `puku` → പുക, `raju` → രാജു,
   // `vasu` → വസു, `oru` → ഒരു.
-  if (lastWasSyllable &&
-      lastConsonant != null &&
-      lastVowelId == 'u') {
+  if (lastWasSyllable && lastConsonant != null && lastVowelId == 'u') {
     final c = lastConsonant!;
     final id = _idOf(c);
     if (lastGeminate || uDropConsonants.contains(id)) {

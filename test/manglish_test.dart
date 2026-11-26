@@ -151,6 +151,10 @@ void main() {
       expect(tr('ketta'), 'കെട്ട');
       expect(tr('pattu'), 'പട്ട്');
       expect(tr('paattu'), 'പാട്ട്');
+      expect(tr('kott'), 'കൊട്ട്');
+      expect(tr('kall'), 'കല്ല്');
+      expect(tr('kann'), 'കന്ന്');
+      expect(tr('kamm'), 'കമ്മ്');
     });
   });
 
@@ -170,6 +174,8 @@ void main() {
 
     test('visarga', () {
       expect(tr('ah'), 'അഃ');
+      expect(tr('namah'), 'നമഃ');
+      expect(tr('narh'), 'നർഹ്');
     });
 
     test('long vowels and diphthongs', () {
