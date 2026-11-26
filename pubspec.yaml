@@ -1,0 +1,13 @@
+name: manglish
+description: Manglish (Malayalam written in Latin script) to Malayalam script transliteration for Dart and Flutter. Pure Dart, zero dependencies, Mozhi-style scheme with chillu, anusvara and samvruthokaram handling.
+version: 0.1.0
+repository: https://github.com/nuvishh/manglish
+issue_tracker: https://github.com/nuvishh/manglish/issues
+homepage: https://github.com/nuvishh/manglish
+
+environment:
+  sdk: ^3.6.0
+
+dev_dependencies:
+  lints: ^5.1.0
+  test: ^1.25.0
