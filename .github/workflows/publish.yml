@@ -1,0 +1,24 @@
+# Publishes manglish to pub.dev automatically when a version tag is pushed.
+# One-time setup on pub.dev (package Admin tab -> Automated publishing):
+#   Enable publishing from GitHub Actions
+#   Repository: nuvishh/manglish
+#   Tag pattern: v{{version}}
+# Then: git tag v0.1.1 && git push origin v0.1.1
+# No secrets needed — pub.dev trusts the GitHub Actions OIDC token.
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub publish --dry-run
+      - run: dart pub publish --force
