@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Shortened the package description to meet pub.dev's 60–180 character guideline (fixes the 10-point "Follow Dart file conventions" deduction; 150/160 → 160/160).
+
 ## 0.1.0
 
 - Initial release.
